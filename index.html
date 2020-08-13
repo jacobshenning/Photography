@@ -2,7 +2,13 @@
 <html>
 <head>
 </head>
-<body style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+<body>
+
+<h1 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: center;">Photos</h1>
+
+<div id="photos" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+
+</div>
 
 <script src="https://cdn.rawgit.com/oliver-moran/jimp/v0.2.27/browser/lib/jimp.min.js"></script>
 
@@ -16,9 +22,11 @@
             .getBase64(Jimp.MIME_JPEG, function (err, src) {
                 let container = document.createElement("div");
                 container.setAttribute('id', `container_${i}`);
-                document.body.appendChild(container);
+                let photos = document.getElementById('photos');
+                photos.appendChild(container);
                 let img = document.createElement("img");
                 img.setAttribute("src", src);
+                img.setAttribute("style", "margin: 10px;");
                 container.appendChild(img);
                 getImage(i+1);
             });
