@@ -13,7 +13,7 @@
 <script src="https://cdn.rawgit.com/oliver-moran/jimp/v0.2.27/browser/lib/jimp.min.js"></script>
 
 <script>
-    function modifyImage(img, url) {
+    function modifyImage(img, url, x) {
         switch (Math.floor((Math.random() * 10) + 1)) {
             case 1:
                 Jimp.read(url).then(function (url) {
@@ -90,7 +90,7 @@
                 });
                 break;
         }
-        setTimeout(modifyImage, 1000, img, url);
+        setTimeout(modifyImage, 100 * x, img, url, x+1);
         // url.resize(256, Jimp.AUTO)
         // .quality(60)
         // .getBase64(Jimp.MIME_JPEG, function (err, src) {
@@ -109,7 +109,7 @@
                 img.setAttribute("src", src);
                 img.setAttribute("style", "margin: 10px;");
                 container.appendChild(img);
-                setTimeout(modifyImage, 1000, img, src);
+                setTimeout(modifyImage, 100, img, src, 1);
                 getImage(i+1);
             });
         });
