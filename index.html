@@ -13,7 +13,88 @@
 <script src="https://cdn.rawgit.com/oliver-moran/jimp/v0.2.27/browser/lib/jimp.min.js"></script>
 
 <script>
-    let i = 0;
+    function modifyImage(img, url) {
+        switch (Math.floor((Math.random() * 10) + 1)) {
+            case 1:
+                Jimp.read(url).then(function (url) {
+                    url.greyscale()
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 2:
+                Jimp.read(url).then(function (url) {
+                    url.brightness(Math.floor((Math.random() * 20) - 9)/10)
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 3:
+                Jimp.read(url).then(function (url) {
+                    url.invert()
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 4:
+                Jimp.read(url).then(function (url) {
+                    url.dither565()
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 5:
+                Jimp.read(url).then(function (url) {
+                    url.mirror(true, false)
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 6:
+                Jimp.read(url).then(function (url) {
+                    url.posterize(5)
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 7:
+                Jimp.read(url).then(function (url) {
+                    url.sepia()
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 8:
+                break;
+            case 9:
+                Jimp.read(url).then(function (url) {
+                    url.flip(true, false)
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+            case 10:
+                Jimp.read(url).then(function (url) {
+                    url.blur(5)
+                        .getBase64(Jimp.MIME_JPEG, function (err, src) {
+                            img.setAttribute('src', src);
+                        });
+                });
+                break;
+        }
+        setTimeout(modifyImage, 1000, img, url);
+        // url.resize(256, Jimp.AUTO)
+        // .quality(60)
+        // .getBase64(Jimp.MIME_JPEG, function (err, src) {
+    }
 
     function getImage(i) {
         Jimp.read('https://picsum.photos/200/300').then(function (url) {
@@ -28,12 +109,13 @@
                 img.setAttribute("src", src);
                 img.setAttribute("style", "margin: 10px;");
                 container.appendChild(img);
+                setTimeout(modifyImage, 1000, img, src);
                 getImage(i+1);
             });
         });
     }
 
-    getImage(i);
+    getImage(0);
 </script>
 </body>
 </html>
